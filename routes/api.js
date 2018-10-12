@@ -1,10 +1,17 @@
 const express = require ('express');
 const router = express.Router();
 
+/**
+ * The post body should contain
+ * name, phoneNumber and address
+ */
 router.post("/save_contact", (req, res) => {
-    res.json({type: "post request sent"});
+    res.json(req.body);
 });
 
+/**
+ * get request returns the list of contacts on the page
+ */
 router.get("/", (req, res) => {
 
     res.json({name: "Wale", phoneNumber: "438722", address: "somewhere in Canada" });
