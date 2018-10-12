@@ -1,22 +1,37 @@
-const dbConnector = require('./db_connector');
+/**
+ * The api uses this to interface with the database repository layer
+ */
 
-let isDbConnected = false;
+const dbManager = require('./dbManager');
+let dbName = "contactDb";
 
-dbConnector({}, (error, success) => {
-    if(error) {
-        console.log("error connecting to db");
-        // problem connecting to database
-        // return response error
+
+dbManager.connect((err, success) => {
+    if (err) {
+        console.log("** db_interface: error ", err);
         return;
     }
-    console.log("connection successful");
-    isDbConnected = true;
-})
 
-let saveContact = () => {
+    console.log("** db_interface: success ", success);
+
+}, dbName);
+
+/**
+ * @param contact of type object with key 
+ * name: String,
+ * phoneNumber: String,
+ * address: String
+ * 
+ * @returns the latest updated data
+ */
+let saveContact = (contact) => {
+    
 
 }
 
+/**
+ * returns all contact data in the database
+ */
 let fetchContacts = () => {
 
 }
