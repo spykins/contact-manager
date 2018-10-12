@@ -4,7 +4,8 @@
   "description": "A single page web application for managing contacts",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,12 @@
   "bugs": {
     "url": "https://github.com/spykins/contact-manager/issues"
   },
-  "homepage": "https://github.com/spykins/contact-manager#readme"
+  "homepage": "https://github.com/spykins/contact-manager#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mysql": "^2.16.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
 }
