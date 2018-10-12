@@ -1,11 +1,10 @@
 const dbConnector = require('./db_connector');
 
 /**
- * 
  * @param {*} callback when the database layer is connected
- * @param {*} dbName is the name of the database
  */
-const DbConnectionManager = (callback, dbName) => {
+let databaseSetup;
+const DbConnectionManager = (callback) => {
     if (dbConnector.isAuthenticated) {
         dbConnector.connect((error, success) => {
             if(error) {
@@ -13,11 +12,27 @@ const DbConnectionManager = (callback, dbName) => {
                 return;
             }
             callback(null, success);
-        }, dbName);
+        });
     }
+};
+
+let saveContactToDb = (contact, callback) => {
+    let tableName = databaseSetup.tableName ? databaseSetup.tableName : "myTableName";
+    dbConnector.saveContactToDb(contact, callback, tableName);
 }
 
-module.exports = {
-    isDbConnected: dbConnector.isAuthenticated(),
-    connect: DbConnectionManager
+let fetchAllContacts = (callback) => {
+    let tableName = databaseSetup.tableName ? databaseSetup.tableName : "myTableName";
+    dbConnector.fetchAllContacts(callback, tableName);
+};
+
+module.exports = (dbInfo)  => {
+    databaseSetup = dbInfo;
+    return {
+        isDbConnected: () => dbConnector.isAuthenticated(),
+        connect: DbConnectionManager,
+        fetchAllContacts,
+        saveContactToDb
+    }
+    
 }
