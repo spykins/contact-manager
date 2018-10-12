@@ -1,0 +1,44 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+    <div class="centerElement">
+        <p>Contact List</p>
+    </div>
+
+    <div class="centerElement">
+        <p id="error"> </p>
+    </div>
+
+    <div class="centerElement">
+        <div>
+            <form id="form">
+                Name: <input type="text" name="name" id="name" placeholder="Enter name"><br />
+                Address:<input type="text" name="address" id="address" placeholder="Enter Address"><br />
+                Phone number:<input type="text" name="phoneNumber" id="phoneNumber" placeholder="Enter Address"><br />
+                <input type="submit" value="Submit" />
+            </form>
+        </div>
+    </div>
+
+    <div id="list">
+        <table id="contactTable">
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>phoneNumber</th>
+            </tr>
+        </table>
+    </div>
+    
+    <script src="main.js"></script>
+</body>
+
+</html>
