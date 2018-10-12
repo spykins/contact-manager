@@ -10,6 +10,4 @@ const dbConfig = () => {
     });
 }
 
-module.exports = () => {
-    return dbConfig();
-};
+module.exports = dbConfig;
