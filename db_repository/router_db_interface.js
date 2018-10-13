@@ -20,8 +20,6 @@ let saveContact = (contact, callback) => {
         dbManager.saveContactToDb(contact, callback);
     } else {
         dbManager.connect((error, success) => {
-            console.log(error)
-
             if (error) {
                 callback(error, null);
                 return;
@@ -38,8 +36,6 @@ let fetchContacts = (callback) => {
     if (dbManager.isDbConnected()) {
         dbManager.fetchAllContacts(callback);
     } else {
-        console.log("Hit here !dbManager.isDbConnected()");
-
         dbManager.connect((error, success) => {
             if (error) {
                 callback(error, null);
