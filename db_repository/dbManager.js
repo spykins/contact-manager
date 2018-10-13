@@ -5,15 +5,18 @@ const dbConnector = require('./db_connector');
  */
 let databaseSetup;
 const DbConnectionManager = (callback) => {
+
     if (dbConnector.isAuthenticated) {
+
         dbConnector.connect((error, success) => {
             if(error) {
+
                 callback(error, null);
                 return;
             }
             callback(null, success);
         });
-    }
+    } 
 };
 
 let saveContactToDb = (contact, callback) => {
