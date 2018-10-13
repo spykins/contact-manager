@@ -3,16 +3,9 @@
  */
 
 //pass the dbName into the dbManager
-const dbManager = require('./dbManager')({tableName: "contacts"});
 
-
-dbManager.connect((err, success) => {
-    if (err) {
-        console.log("** db_interface: error ", err);
-        return;
-    }
-});
-
+const utils = require('../utils/utils')
+const dbManager = require('./dbManager')({tableName: utils.tableName});
 
 /**
  * @param contact of type object with key 
@@ -27,8 +20,6 @@ let saveContact = (contact, callback) => {
         dbManager.saveContactToDb(contact, callback);
     } else {
         dbManager.connect((error, success) => {
-            console.log(error)
-
             if (error) {
                 callback(error, null);
                 return;
@@ -36,15 +27,24 @@ let saveContact = (contact, callback) => {
             dbManager.saveContactToDb(contact, callback);
         })
     }
-    
-
 }
 
 /**
  * returns all contact data in the database
  */
 let fetchContacts = (callback) => {
-    dbManager.fetchAllContacts(callback);
+    if (dbManager.isDbConnected()) {
+        dbManager.fetchAllContacts(callback);
+    } else {
+        dbManager.connect((error, success) => {
+            if (error) {
+                callback(error, null);
+                return;
+            }
+            dbManager.fetchAllContacts(callback);
+        })
+    }
+
 }
 
 module.exports = {

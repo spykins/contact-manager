@@ -11,31 +11,13 @@ let connection = configureDb();
  * @param {*} onMysqlConnected is the callback when the database is connected
  */
 let connect = (onMysqlConnected) => {
-
     connection.connect((err, success) => {
         if (err) {
             return onMysqlConnected(err, null);
         };
-
-        connection.query(query.createDb(), (err, result) => {
-            if (err) {
-                return onMysqlConnected(err, null);
-            }
-            isAuthenticated();
-
-            onMysqlConnected(null, result);
-        });
+        onMysqlConnected(null, success);
     });
 }
-
-let createTable = (tableName, callback) => {
-    connection.query(query.createTable(tableName), (error, result) => {
-        if (error) {
-            return callback(error, null);
-        }
-        callback(null, result);
-    });
-};
 
 /**
  * @param contact of type object with key 
@@ -57,15 +39,16 @@ let writeContactToDb = (contact, callback, tableName) => {
 }
 
 let saveContactToDb = (contact, callback, tableName) => {
-    if (isAuthenticated) {
-        createTable(tableName, (error, success) => {
-            if (error) {                
+    if (isAuthenticated()) {
+        writeContactToDb(contact, callback, tableName);
+    } else {
+        connect((error, success) => {
+            if (error) {
                 return callback(error, null);
             }
             writeContactToDb(contact, callback, tableName);
         })
     }
-    //TODO: handle case when not connected
 
 }
 
